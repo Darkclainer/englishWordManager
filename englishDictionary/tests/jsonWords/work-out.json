@@ -1,0 +1,126 @@
+[
+    {
+        "__type__": "Word",
+        "lettering": "work out",
+        "partOfSpeech": "phrasal verb",
+        "language": "british",
+        "transcriptions": 
+        {
+            "uk": "wɜːk",
+            "us": "wɝːk"
+        },
+        "definitions":
+        [
+            {
+                "__type__": "Definition",
+                "hint": "exercise",
+                "text": "to exercise in order to improve the strength or appearance of your body",
+                "examples": 
+                [
+                    "Huw works out in the gym two or three times a week."
+                ],
+                "variant": null,
+                "gc": []
+            },
+            {
+                "__type__": "Definition",
+                "hint": "result",
+                "text": "to be the result of a calculation",
+                "examples": 
+                [
+                    "These figures work out differently each time I add them.",
+                    "The safe load for a truck of this size works out at nearly 20 tons.",
+                    "In fact the trip worked out cheaper than we'd expected."
+                ],
+                "variant": null,
+                "gc": ["L"]
+            },
+            {
+                "__type__": "Definition",
+                "hint": "develop",
+                "text": "to happen or develop in a particular way",
+                "examples": 
+                [
+                    "How is the new monitoring procedure working out?",
+                    "Let's hope this new job works out well for him."
+                ],
+                "variant": null,
+                "gc": []
+            }
+        ]
+
+    },
+    {
+        "__type__": "Word",
+        "lettering": "work out",
+        "partOfSpeech": "phrasal verb",
+        "language": "american-english",
+        "transcriptions": 
+        {
+            "us": "wɜrk"
+        },
+        "definitions": 
+        [
+            {
+                "__type__": "Definition",
+                "hint": "happen",
+                "text": "(of a situation) to happen or develop in a particular, esp. a satisfactory, way, or (of a person) to be suitable for a particular situation",
+                "examples": 
+                [
+                    "Nothing was working out right.",
+                    "Is your new assistant working out OK?"
+                ],
+                "variant": null,
+                "gc": []
+            },
+            {
+                "__type__": "Definition",
+                "hint": "exercise",
+                "text": "to exercise in order to improve health, strength, or physical appearance, or to improve your skill in a sport",
+                "examples": 
+                [
+                    "I work out on my stationary bike."
+                ],
+                "variant": null, 
+                "gc": []
+            }
+        ]
+    },
+    {
+        "__type__": "Word",
+        "lettering": "work out",
+        "partOfSpeech": "phrasal verb",
+        "language": "business-english",
+        "transcriptions": 
+        {
+            "uk": "wɜːk"
+        },
+        "definitions": 
+        [
+            {
+                "__type__": "Definition",
+                "hint": null,
+                "text": "to be successful or develop in a particular way",
+                "examples": 
+                [
+                    "I hope your new job works out."
+                ],
+                "variant": null,
+                "gc": []
+            },
+            {
+                "__type__": "Definition",
+                "hint": null,
+                "text": "to have a particular result or type of result",
+                "examples": 
+                [
+                    "These figures work out different every time I do them.",
+                    "It works out cheaper to have the books printed in India.",
+                    "work out at sth The unit cost works out at €11.25."
+                ],
+                "variant": null,
+                "gc": []
+            }
+        ]
+    }
+]

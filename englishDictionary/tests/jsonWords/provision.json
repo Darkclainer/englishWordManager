@@ -1,0 +1,206 @@
+[
+    {
+        "definitions": [
+            {
+                "gc": [
+                    "U",
+                    "C"
+                ],
+                "variant": null,
+                "text": "the act of providing something",
+                "examples": [
+                    "The provision of good public transport will be essential for developing the area.",
+                    "Of course there's provision in the plan for population increase.",
+                    "When designing buildings in this area, you have to make provision against earthquakes."
+                ],
+                "hint": "supply"
+            },
+            {
+                "gc": [],
+                "variant": "provisions",
+                "text": "supplies of food and other necessary things",
+                "examples": [
+                    "provisions for the journey"
+                ],
+                "hint": "supply"
+            },
+            {
+                "gc": [
+                    "C"
+                ],
+                "variant": null,
+                "text": "a statement within an agreement or a law that a particular thing must happen or be done, especially before another can happen or be done",
+                "examples": [
+                    "We have inserted certain provisions into the treaty to safeguard foreign workers.",
+                    "[ + that ] She accepted the job with the provision that she would be paid expenses for relocating."
+                ],
+                "hint": "law"
+            },
+            {
+                "gc": [],
+                "variant": null,
+                "text": "in a company's accounts (= financial records), an amount of money that is kept in case of a possible future loss",
+                "examples": [
+                    "The insurance company made a provision against claims over alleged pension fraud."
+                ],
+                "hint": "finance"
+            },
+            {
+                "gc": [],
+                "variant": "make provision for sth",
+                "text": "to make arrangements to deal with something, often financial arrangements",
+                "examples": [
+                    "He hasn't made any provision for his retirement yet."
+                ],
+                "hint": "finance"
+            }
+        ],
+        "transcriptions": {
+            "us": "prəˈvɪʒ.ᵊn",
+            "uk": "prəˈvɪʒ.ᵊn"
+        },
+        "language": "british",
+        "partOfSpeech": "noun",
+        "lettering": "provision"
+    },
+    {
+        "definitions": [
+            {
+                "gc": [],
+                "variant": null,
+                "text": "to supply someone or something with food and other necessary things",
+                "examples": [],
+                "hint": null
+            }
+        ],
+        "transcriptions": {
+            "us": "prəˈvɪʒ.ᵊn",
+            "uk": "prəˈvɪʒ.ᵊn"
+        },
+        "language": "british",
+        "partOfSpeech": "verb",
+        "lettering": "provision"
+    },
+    {
+        "definitions": [
+            {
+                "gc": [
+                    "C/U"
+                ],
+                "variant": null,
+                "text": "something that is needed or wanted, or the act of considering the need for something and arranging for it",
+                "examples": [
+                    "[ U ] When designing buildings in California, you have to make some provision for earthquakes.",
+                    "[ C ] Ample provisions for aircraft stability have been made."
+                ],
+                "hint": "something needed"
+            },
+            {
+                "gc": [
+                    "C/U"
+                ],
+                "variant": null,
+                "text": "provisions are also supplies of food and other necessary items",
+                "examples": [
+                    "[ pl ] Provisions had to be flown in by helicopter."
+                ],
+                "hint": "something needed"
+            },
+            {
+                "gc": [
+                    "C"
+                ],
+                "variant": null,
+                "text": "a statement in an agreement or a law that a particular thing must happen or be done",
+                "examples": [
+                    "Her contract contains a provision covering additional expenses."
+                ],
+                "hint": "agreement"
+            }
+        ],
+        "transcriptions": {
+            "us": "prəˈvɪʒ·ən"
+        },
+        "language": "american-english",
+        "partOfSpeech": "noun",
+        "lettering": "provision"
+    },
+    {
+        "definitions": [
+            {
+                "gc": [
+                    "U",
+                    "C"
+                ],
+                "variant": null,
+                "text": "in a company's accounts, an amount of money that is kept in case of a possible future loss or debt",
+                "examples": [
+                    "The insurance company made a provision against claims over alleged pension fraud.",
+                    "a provision for sth The finance director revealed a $47m provision for finding and compensating victims of bad pensions advice."
+                ],
+                "hint": null
+            },
+            {
+                "gc": [
+                    "U",
+                    "C"
+                ],
+                "variant": null,
+                "text": "a part of a legal document that states that something must happen or be done",
+                "examples": [
+                    "Employees may be asked to go to a new and different place of work under the provisions of a mobility clause.",
+                    "include/contain a provision Many contracts currently include a provision prohibiting supervisors from doing work done by union workers.",
+                    "anti-fraud/registration provisions",
+                    "statutory/legal provisions"
+                ],
+                "hint": null
+            },
+            {
+                "gc": [
+                    "U"
+                ],
+                "variant": null,
+                "text": "the act of selling goods or services or making them available to be used",
+                "examples": [
+                    "The Group remains fully committed to the provision of mortgage finance to individuals.",
+                    "service/pension/retirement provision"
+                ],
+                "hint": null
+            },
+            {
+                "gc": [],
+                "variant": "make provision(s) (for sth)",
+                "text": "to make plans for dealing with something that will or may happen in the future",
+                "examples": [
+                    "If companies are to succeed in the long term, they must make provisions for coping with a diverse international marketplace."
+                ],
+                "hint": null
+            }
+        ],
+        "transcriptions": {
+            "uk": "prəˈvɪʒᵊn"
+        },
+        "language": "business-english",
+        "partOfSpeech": "noun",
+        "lettering": "provision"
+    },
+    {
+        "definitions": [
+            {
+                "gc": [],
+                "variant": null,
+                "text": "to keep an amount of money available to be used in case of a possible future loss or debt",
+                "examples": [
+                    "The company has revealed that it has provisioned £235m for asbestos-related claims."
+                ],
+                "hint": null
+            }
+        ],
+        "transcriptions": {
+            "uk": "prəˈvɪʒᵊn"
+        },
+        "language": "business-english",
+        "partOfSpeech": "verb",
+        "lettering": "provision"
+    }
+]

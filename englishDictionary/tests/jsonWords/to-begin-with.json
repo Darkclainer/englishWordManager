@@ -1,0 +1,45 @@
+[
+    {
+        "partOfSpeech": "idiom",
+        "language": "british",
+        "lettering": "to begin with",
+        "definitions": [
+            {
+                "hint": null,
+                "examples": [
+                    "There were six of us to begin with, then two people left."
+                ],
+                "variant": null,
+                "gc": [],
+                "text": "at the start of a process, event, or situation"
+            },
+            {
+                "hint": null,
+                "examples": [
+                    "The hotel was awful! To begin with, our room was far too small."
+                ],
+                "variant": null,
+                "gc": [],
+                "text": "used to give the first important reason for something"
+            }
+        ],
+        "transcriptions": {}
+    },
+    {
+        "partOfSpeech": "idiom",
+        "language": "american-english",
+        "lettering": "to begin with",
+        "definitions": [
+            {
+                "hint": null,
+                "examples": [
+                    "We had an awful time! To begin with, Cameron got sick on the first day."
+                ],
+                "variant": null,
+                "gc": [],
+                "text": "first"
+            }
+        ],
+        "transcriptions": {}
+    }
+]

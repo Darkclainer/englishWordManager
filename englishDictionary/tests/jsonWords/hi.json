@@ -1,0 +1,57 @@
+[
+    {
+        "language": "british",
+        "definitions": [
+            {
+                "text": "used as an informal greeting, usually to people who you know",
+                "variant": null,
+                "examples": [
+                    "Hi, there!",
+                    "Hi, how are you doing?"
+                ],
+                "hint": null,
+                "gc": []
+            }
+        ],
+        "transcriptions": {
+            "uk": "haɪ",
+            "us": "haɪ"
+        },
+        "lettering": "hi",
+        "partOfSpeech": "exclamation"
+    },
+    {
+        "language": "british",
+        "definitions": [
+            {
+                "text": "written abbreviation for the US state of Hawaii: used in addresses",
+                "variant": null,
+                "examples": [],
+                "hint": null,
+                "gc": []
+            }
+        ],
+        "transcriptions": {},
+        "lettering": "hi",
+        "partOfSpeech": "unknown"
+    },
+    {
+        "language": "american-english",
+        "definitions": [
+            {
+                "text": "used as an informal greeting",
+                "variant": null,
+                "examples": [
+                    "Hi, how are you doing?"
+                ],
+                "hint": null,
+                "gc": []
+            }
+        ],
+        "transcriptions": {
+            "us": "hɑɪ"
+        },
+        "lettering": "hi",
+        "partOfSpeech": "exclamation"
+    }
+]

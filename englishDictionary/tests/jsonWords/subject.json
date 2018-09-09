@@ -1,0 +1,231 @@
+[
+    {
+        "transcriptions": {
+            "us": "ˈsʌb.dʒekt",
+            "uk": "ˈsʌb.dʒekt"
+        },
+        "definitions": [
+            {
+                "gc": [],
+                "examples": [
+                    "Our subject for discussion is homelessness.",
+                    "She has made a series of documentaries on the subject of family relationships.",
+                    "The guest lecturer took as her subject (= decided to speak about) \"punishment and imprisonment in modern society\".",
+                    "The number of planes flying over the town has been the subject of (= has caused) concern since last summer."
+                ],
+                "text": "the thing that is being discussed, considered, or studied",
+                "hint": "area of discussion",
+                "variant": null
+            },
+            {
+                "gc": [],
+                "examples": [
+                    "My favourite subjects at school were history and English.",
+                    "mainly UK Her subject (= special area of study) is low-temperature physics."
+                ],
+                "text": "an area of knowledge that is studied in school, college, or university",
+                "hint": "area of study",
+                "variant": null
+            },
+            {
+                "gc": [],
+                "examples": [
+                    "I'd tried to explain the situation, but he just changed the subject."
+                ],
+                "text": "to start talking about a different subject",
+                "hint": "area of study",
+                "variant": "change the subject"
+            },
+            {
+                "gc": [],
+                "examples": [
+                    "The mill by the bridge was the subject of an unfinished painting by J. M. W. Turner."
+                ],
+                "text": "a person, thing, or situation that is written about in a book, article, etc. or shown in a picture, etc.",
+                "hint": "story/painting",
+                "variant": null
+            },
+            {
+                "gc": [],
+                "examples": [
+                    "\"Bob\" is the subject of the sentence \"Bob threw the ball.\""
+                ],
+                "text": "the person or thing that performs the action of a verb, or is joined to a description by a verb",
+                "hint": "grammar",
+                "variant": null
+            },
+            {
+                "gc": [],
+                "examples": [
+                    "He is a British subject."
+                ],
+                "text": "a person who lives in or who has the right to live in a particular country, especially a country with a king or queen",
+                "hint": "person",
+                "variant": null
+            }
+        ],
+        "lettering": "subject",
+        "language": "british",
+        "partOfSpeech": "noun"
+    },
+    {
+        "transcriptions": {
+            "us": "səbˈdʒekt",
+            "uk": "səbˈdʒekt"
+        },
+        "definitions": [
+            {
+                "gc": [],
+                "examples": [
+                    "The invaders quickly subjected the local tribes."
+                ],
+                "text": "to defeat people or a country and then control them against their wishes and limit their freedom",
+                "hint": null,
+                "variant": null
+            }
+        ],
+        "lettering": "subject",
+        "language": "british",
+        "partOfSpeech": "verb"
+    },
+    {
+        "transcriptions": {
+            "us": "ˈsʌb.dʒekt",
+            "uk": "ˈsʌb.dʒekt"
+        },
+        "definitions": [
+            {
+                "gc": [],
+                "examples": [
+                    "Cars are subject to a high domestic tax.",
+                    "In recent years, she has been subject to attacks of depression."
+                ],
+                "text": "to have or experience a particular thing, especially something unpleasant",
+                "hint": "having",
+                "variant": "be subject to sth"
+            },
+            {
+                "gc": [],
+                "examples": [
+                    "We plan to go on Wednesday, subject to your approval.",
+                    "Moving all the books should not take long, subject to there being (= if there are) enough helpers."
+                ],
+                "text": "only able to happen if something else happens",
+                "hint": "depend",
+                "variant": "subject to sth"
+            },
+            {
+                "gc": [
+                    "before noun"
+                ],
+                "examples": [
+                    "subject peoples/states"
+                ],
+                "text": "under the political control of another country or state",
+                "hint": "govern",
+                "variant": null
+            }
+        ],
+        "lettering": "subject",
+        "language": "british",
+        "partOfSpeech": "adjective"
+    },
+    {
+        "transcriptions": {
+            "us": "ˈsʌb·dʒɪkt, -dʒekt"
+        },
+        "definitions": [
+            {
+                "gc": [],
+                "examples": [
+                    "School officials broached the subject of extending the school year.",
+                    "It seemed like a good idea to change the subject."
+                ],
+                "text": "something that is being discussed or considered",
+                "hint": "area of discussion",
+                "variant": null
+            },
+            {
+                "gc": [],
+                "examples": [
+                    "My favorite subjects are history and geography."
+                ],
+                "text": "an area of knowledge that is studied in school or college",
+                "hint": "school course",
+                "variant": null
+            },
+            {
+                "gc": [],
+                "examples": [
+                    "a British subject"
+                ],
+                "text": "a person who lives or who has the right to live in a particular country, esp. a country with a king or queen",
+                "hint": "person",
+                "variant": null
+            },
+            {
+                "gc": [],
+                "examples": [
+                    "\"Bob\" is the subject of the sentence, \"Bob threw the ball.\""
+                ],
+                "text": "the person or thing that performs the action of a verb, or which is joined to a description by a verb",
+                "hint": "grammar",
+                "variant": null
+            }
+        ],
+        "lettering": "subject",
+        "language": "american-english",
+        "partOfSpeech": "noun"
+    },
+    {
+        "transcriptions": {
+            "uk": "ˈsʌbdʒɪkt"
+        },
+        "definitions": [
+            {
+                "gc": [],
+                "examples": [
+                    "be subject to a charge/fee/tariff You may be subject to additional bank charges for currency conversion.",
+                    "The company could be subject to a hostile takeover.",
+                    "Income from investment of the capital will be subject to tax."
+                ],
+                "text": "likely to have or experience a particular thing, especially something unpleasant",
+                "hint": null,
+                "variant": "subject to sth"
+            },
+            {
+                "gc": [],
+                "examples": [
+                    "The $1.14 billion project is subject to approval by the board.",
+                    "Outline planning permission has been granted, subject to a public inquiry, for a new 10,000-seat stadium on the land.",
+                    "Tax laws are subject to change.",
+                    "The notice period for clients to leave the agency are subject to contract."
+                ],
+                "text": "depending on the stated thing happening",
+                "hint": null,
+                "variant": "subject to sth"
+            },
+            {
+                "gc": [],
+                "examples": [
+                    "The casinos are located on tribal lands not subject to state or local laws."
+                ],
+                "text": "under the political control or authority of something",
+                "hint": null,
+                "variant": "subject to sth"
+            },
+            {
+                "gc": [],
+                "examples": [
+                    "You must adequately insure yourself otherwise you may find yourself subject to average."
+                ],
+                "text": "used about an insurance agreement when the amount of insurance on a property is less than the real value of the property, so the amount paid out by the company will be reduced",
+                "hint": null,
+                "variant": "subject to average"
+            }
+        ],
+        "lettering": "subject",
+        "language": "business-english",
+        "partOfSpeech": "adjective"
+    }
+]
