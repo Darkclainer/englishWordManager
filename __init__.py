@@ -8,9 +8,11 @@ from . import ankiwordview
 from . import treehtmlview
 from . import exampleswidget
 from . import transcriptionwidget
+from . import ankiinterface
 
 import importlib
 importlib.reload(ankiword)
+importlib.reload(ankiinterface)
 importlib.reload(metawordfinder)
 importlib.reload(htmldelegate)
 importlib.reload(treehtmlview)
@@ -37,7 +39,7 @@ import traceback
 #plugins module for reload
 
 def loadTestMetaword():
-    with open('/home/dio/.local/share/Anki2/addons21/metawordGui/testmetaword.json') as f:
+    with open('/home/dio/.local/share/Anki2/addons21/englishWordManager/testmetaword.json') as f:
         metawordJson = json.load(f)
 
     return Metaword.fromSON(metawordJson)

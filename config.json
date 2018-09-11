@@ -1,0 +1,16 @@
+{
+    "modelName": "EnglishWord",
+    "fields":
+    {
+        "lettering": "Original",
+        "hint": "GuideWord",
+        "partOfSpeech": "PartOfSpeech",
+        "variant": "Variant",
+        "definition": "EnglishDescription",
+        "transcription": "Transcription",
+        "context": "Context",
+        "example": "ExampleSentence"
+    },
+    "preferredTranscription": "uk",
+    "preferredLanguage": "british"
+}
