@@ -92,7 +92,6 @@ class MetawordFinder(QLineEdit):
             self.completer().popup().close()
             self.setCompleter(None)
 
-
     def returnPressedSlot(self):
         """Called when enter was pressed"""
         self.setLookSearching()
