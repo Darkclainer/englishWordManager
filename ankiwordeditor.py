@@ -56,27 +56,13 @@ class AnkiwordEditor(QWidget):
         self.partOfSpeechEdit = widget
         row += 1
 
-        #4th row
-        label = QLabel(self, text='Variant:')
-        layout.addWidget(label, row, 0, 1, 1, alignment=Qt.AlignRight | Qt.AlignTop)
-
-        widget = QLineEdit(self)
-        layout.addWidget(widget, row, 1, 1, 1)
-        label.setBuddy(widget)
-        self.variantEdit = widget
-        row += 1
-
-        #1-4 row
-        #label = QLabel(self, text='Definition:')
-        #layout.addWidget(label, 0, 2, 1, 1, alignment=Qt.AlignRight | Qt.AlignTop)
-
+        #1-3 row second column
         widget = QTextEdit(self)
-        layout.addWidget(widget, 0, 2, 4, 1)
+        layout.addWidget(widget, 0, 2, 3, 2)
         label.setBuddy(widget)
         self.definitionEdit = widget
-        #row += 2
 
-        #5th row
+        #4th row
         label = QLabel(self, text='Transcription:')
         layout.addWidget(label, row, 0, alignment=Qt.AlignRight | Qt.AlignTop)
 
@@ -88,7 +74,7 @@ class AnkiwordEditor(QWidget):
         self.transcriptionEdit = widget
         row += 2
 
-        #7th row
+        #5th row
         label = QLabel(self, text='Examples:')
         layout.addWidget(label, row, 0, 1, 1, alignment=Qt.AlignRight | Qt.AlignTop)
 
@@ -111,7 +97,6 @@ class AnkiwordEditor(QWidget):
         self.letteringEdit.setText(newAnkiword.lettering)
         self.hintEdit.setText(newAnkiword.hint)
         self.partOfSpeechEdit.setText(newAnkiword.partOfSpeech)
-        self.variantEdit.setText(newAnkiword.variant)
 
         self.definitionEdit.setText(newAnkiword.definition)
 

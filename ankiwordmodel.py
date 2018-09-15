@@ -79,9 +79,7 @@ class AnkiwordItem(TreeItem):
 
     def data(self):
         """Return textual representation"""
-        preambule = ''
-        if self.ankiword.variant:
-            preambule = '<b>{0}</b><br>'.format(self.ankiword.variant)
+        preambule = '<b>{0}</b>: '.format(self.ankiword.lettering)
         if self.ankiword.hint:
             return '{0}<i>({1})</i> {2}'.format(preambule,
                                                 self.ankiword.hint,

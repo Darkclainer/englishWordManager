@@ -1,5 +1,5 @@
 """This module define Ankiword class and metawordToAnkiwordList function"""
-from .ankiinterface import config
+from .config import config
 
 class Ankiword:
     """Class used to bound Word with Anki"""
@@ -12,7 +12,6 @@ class Ankiword:
         self.definition = ''
         self. examples = []
         self.hint = ''
-        self.variant = ''
 
         # note id (nid) in anki database
         self.noteId = None
@@ -27,15 +26,18 @@ class Ankiword:
         ankiword.definition = definition.text
         ankiword.examples = list(definition.examples)
         ankiword.hint = definition.hint
-        ankiword.variant = definition.variant
-       # ankiword.definition = copy.deepcopy(definition)
+        # if we have variant - set this lettering for word
+        if definition.variant:
+            ankiword.lettering = definition.variant
+
         return ankiword
 
     @staticmethod
     def fromNote(note):
         """Construct Ankiword from Note (from anki database). That function also sets noteId"""
+        fields = config['fields']
         def getFromNote(fieldName):
-            return note[config[fieldName]]
+            return note[fields[fieldName]]
 
         ankiword = Ankiword(getFromNote('lettering'), language=getFromNote('language'))
         ankiword.partOfSpeech = getFromNote('partOfSpeech')
@@ -43,7 +45,6 @@ class Ankiword:
         ankiword.definition = getFromNote('definition')
         ankiword.examples = [getFromNote('context'), getFromNote('example')]
         ankiword.hint = getFromNote('hint')
-        ankiword.variant = getFromNote('variant')
         ankiword.noteId = note.id
         return ankiword
 

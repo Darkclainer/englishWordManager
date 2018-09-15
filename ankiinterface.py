@@ -1,8 +1,8 @@
 import anki
 from aqt import mw
+from .config import config
 from .ankiword import Ankiword
 
-config = mw.addonManager.getConfig('englishWordManager')
 
 def createNewModel(modelName):
     # modelName must be unique
@@ -24,7 +24,7 @@ class AnkiInterface:
 
         self.model = mw.col.models.byName(modelName)
 
-    def findNotes(self, lettering):
+    def findAnkiwords(self, lettering):
         notes = mw.col.db.execute('select id, flds from notes where mid = ? and flds like ?', 
                                   self.model['id'], '%{0}%'.format(lettering))
         letteringIndex = self._getFieldIndex('lettering')

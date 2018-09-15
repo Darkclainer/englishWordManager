@@ -1,3 +1,4 @@
+from . import config
 from . import ankiword
 from . import ankiwordeditor
 from . import metawordfinder
@@ -11,6 +12,7 @@ from . import transcriptionwidget
 from . import ankiinterface
 
 import importlib
+importlib.reload(config)
 importlib.reload(ankiword)
 importlib.reload(ankiinterface)
 importlib.reload(metawordfinder)
@@ -33,6 +35,7 @@ from .metawordfinder import MetawordFinder
 from .ankiwordview import AnkiwordView
 from .ankiwordmodel import AnkiwordModel
 from .ankiwordeditor import AnkiwordEditor
+from .ankiinterface import AnkiInterface
 
 import traceback
 
@@ -48,8 +51,11 @@ class MetawordWindow(QWidget):
     def __init__(self):
         super().__init__()
 
+        self.ankiInterface = AnkiInterface(config.config['modelName'])
+
         self.setMinimumSize(500, 700)
         self.setupUI()
+
 
     def setupUI(self):
         vbox = QVBoxLayout()
@@ -76,8 +82,15 @@ class MetawordWindow(QWidget):
 
 
     def setMetaword(self, metaword):
-        ankiwordList = metawordToAnkiwordList(metaword)
-        self.ankiwordModel.setAnkiwordList(ankiwordList)
+        ankiwords = metawordToAnkiwordList(metaword)
+
+        # now find words from anki database and add it to list
+        letterings = {ankiword.lettering for ankiword in ankiwords}
+        for lettering in letterings:
+            ankiwords.extend(self.ankiInterface.findAnkiwords(lettering))
+
+        self.ankiwordModel.setAnkiwordList(ankiwords)
+
         self.ankiwordView.expandAll()
 
 

@@ -106,7 +106,7 @@ class MetawordFinder(QLineEdit):
         """Called when user click on item in completer list"""
         self.returnPressedSlot()
 
-    def suggestionsReceivesuggestionsReceived(self, suggestions):
+    def suggestionsReceived(self, suggestions):
         """Called when Suggestion recieved, not Metaword, from web"""
         self.setLookBad()
         completer = QCompleter(suggestions.suggestions)
