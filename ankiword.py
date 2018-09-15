@@ -38,10 +38,10 @@ class Ankiword:
         fields = config['fields']
         def getFromNote(fieldName):
             return note[fields[fieldName]]
-
-        ankiword = Ankiword(getFromNote('lettering'), language=getFromNote('language'))
+        language = getFromNote('language') or config['preferredLanguage']
+        ankiword = Ankiword(getFromNote('lettering'), language=language)
         ankiword.partOfSpeech = getFromNote('partOfSpeech')
-        ankiword.transcriptions = ('anki', getFromNote('transcription'))
+        ankiword.transcriptions = [('anki', getFromNote('transcription'))]
         ankiword.definition = getFromNote('definition')
         ankiword.examples = [getFromNote('context'), getFromNote('example')]
         ankiword.hint = getFromNote('hint')

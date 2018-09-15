@@ -67,7 +67,7 @@ class MetawordWindow(QWidget):
         self.ankiwordView = AnkiwordView()
         vbox.addWidget(self.ankiwordView)
 
-        self.ankiwordModel = AnkiwordModel()
+        self.ankiwordModel = AnkiwordModel(ankiInterface=self.ankiInterface)
         self.ankiwordView.setModel(self.ankiwordModel)
         self.setMetaword(loadTestMetaword())
 

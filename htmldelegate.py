@@ -1,7 +1,7 @@
 """This module define HTMLDeletate. Special delegate that can render html tags"""
 from aqt.qt import (Qt, QStyledItemDelegate, QStyle, QApplication,
                     QTextOption, QTextDocument, QAbstractTextDocumentLayout,
-                    QSize)
+                    QSize, QBrush, QColor, QTransform)
 
 class HtmlDelegate(QStyledItemDelegate):
     """Delegate that can render html tags and can transform cell height to fit content"""
@@ -25,6 +25,7 @@ class HtmlDelegate(QStyledItemDelegate):
         self._setupTextDocument(text, option.rect.width())
 
         option.text = ""
+        option.backgroundBrush = index.data(Qt.BackgroundRole) or option.backgroundBrush
         style.drawControl(QStyle.CE_ItemViewItem, option, painter)
 
         ctx = QAbstractTextDocumentLayout.PaintContext()
