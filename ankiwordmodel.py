@@ -2,10 +2,11 @@
 It is abstract view for ankiword list
 """
 
-import sys
-from aqt.qt import Qt, QBrush, QColor, QGradient, QLinearGradient
+import aqt
+from aqt.qt import Qt, QBrush, QColor, QGradient, QLinearGradient, QModelIndex
 from .treemodel import TreeModel, TreeItem
 from .ankiword import Ankiword, metawordToAnkiwordList
+from .textdistance import WordFreq
 
 class AnkiwordModel(TreeModel):
     """Display ankiword like tree. Word grouped by lanuage and part of speech"""
@@ -29,11 +30,52 @@ class AnkiwordModel(TreeModel):
         """Overrided. Return 1 because there is only one column."""
         return 1
 
+    def _nextLevel(self, levelName, parentIndex):
+        for row in range(self.rowCount(parentIndex)):
+            childIndex = self.index(row, 0, parentIndex)
+            if levelName == childIndex.data():
+                return childIndex
+        else:
+            # create new level
+            return self._appendLevel(levelName, parentIndex)
+
+    def _appendLevel(self, levelName, parentIndex):
+        parentLevelItem = self.getItemByIndex(parentIndex)
+        newLevel = AnkiwordLevelItem(levelName, parentLevelItem)
+
+        rows = self.rowCount(parentIndex)
+        self.beginInsertRows(parentIndex, rows, rows)
+        parentLevelItem.childs.append(newLevel)
+        self.endInsertRows()
+
+        return self.index(rows, 0, parentIndex)
+
     def addAnkiword(self, ankiword):
         """Add new ankiword at correct level."""
-        languageLevel = self.rootItem.nextLevel(ankiword.language)
-        partOfSpeechLevel = languageLevel.nextLevel(ankiword.partOfSpeech)
-        partOfSpeechLevel.childs.append(AnkiwordItem(ankiword, partOfSpeechLevel))
+        languageLevelIndex = self._nextLevel(ankiword.language, QModelIndex())
+        partOfSpeechLevelIndex = self._nextLevel(ankiword.partOfSpeech, languageLevelIndex)
+
+        partOfSpeechLevel = partOfSpeechLevelIndex.internalPointer()
+        childAnkiwords = [ankiwordItem.ankiword for ankiwordItem in partOfSpeechLevel.childs]
+        index = self._findAproppriateIndex(childAnkiwords, ankiword)
+
+        self.beginInsertRows(partOfSpeechLevelIndex, index, index)
+        partOfSpeechLevel.childs.insert(index, AnkiwordItem(ankiword, partOfSpeechLevel))
+        self.endInsertRows()
+
+    @staticmethod
+    def _findAproppriateIndex(ankiwordList, newAnkiword):
+        if not newAnkiword.noteId:
+            # if ankiword from web - append it to end
+            return len(ankiwordList)
+        newWordFreq = WordFreq(newAnkiword.definition)
+        # save index and distance to that ankiword.definition
+        indexWithDistance = ((i, newWordFreq.distance(WordFreq(ankiword.definition))) 
+                             for i, ankiword in enumerate(ankiwordList))
+        indexWithDistance = list(indexWithDistance)
+        # compare by distance
+        newIndex = min(indexWithDistance, key=lambda k: k[1])[0]
+        return newIndex + 1
 
     def addAnkiwordList(self, ankiwordList):
         """Add new list of ankiword at correct levels."""
@@ -64,16 +106,16 @@ class AnkiwordLevelItem(TreeItem):
             return None
         return self.name
 
-    def nextLevel(self, levelName):
-        """If there is levelName in self.levels - return it.
-        Else create new AnkiwordLevelItem, save in dictionary and return it
-        """
-        if levelName not in self.levels:
-            newLevel = AnkiwordLevelItem(levelName, self)
-            self.childs.append(newLevel)
-            self.levels[levelName] = newLevel
-            return newLevel
-        return self.levels[levelName]
+    #def nextLevel(self, levelName):
+        #"""If there is levelName in self.levels - return it.
+        #Else create new AnkiwordLevelItem, save in dictionary and return it
+        #"""
+        #if levelName not in self.levels:
+            #newLevel = AnkiwordLevelItem(levelName, self)
+            #self.childs.append(newLevel)
+            #self.levels[levelName] = newLevel
+            #return newLevel
+        #return self.levels[levelName]
 
 class AnkiwordItem(TreeItem):
     """TreeItem that hold particular Ankiword."""

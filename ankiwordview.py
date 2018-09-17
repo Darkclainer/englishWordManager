@@ -18,4 +18,5 @@ class AnkiwordView(TreeHtmlView):
 
         item = index.internalPointer()
         if isinstance(item, AnkiwordItem):
-            editor.ankiword = item.ankiword
+            editor.bound(index)
+            #editor.ankiword = item.ankiword

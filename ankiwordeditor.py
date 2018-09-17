@@ -2,7 +2,7 @@
 
 from aqt.qt import (QWidget, QGridLayout, QLabel, QTextEdit,
                     QLineEdit, QComboBox, QAbstractItemView,
-                    QListWidget, Qt)
+                    QListWidget, Qt, QMargins)
 from .exampleswidget import ExamplesWidget
 from .transcriptionwidget import TranscriptionsWidget
 #from .englishDictionary import Metaword, Suggestions
@@ -12,8 +12,8 @@ class AnkiwordEditor(QWidget):
     property ankiword for setting and getting Ankiword
     """
 
-    def __init__(self, parent=None):
-        super().__init__(parent)
+    def __init__(self, parent=None, **kargs):
+        super().__init__(parent, **kargs)
 
         self._ankiword = None#metawordToAnkiwordList(loadTestMetaword())[0]
         self.persistentIndex = None
@@ -22,6 +22,8 @@ class AnkiwordEditor(QWidget):
 
     def _setupUi(self):
         layout = QGridLayout()
+        # remove margins
+        layout.setContentsMargins(QMargins())
         self.setLayout(layout)
 
         row = 0

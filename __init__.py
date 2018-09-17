@@ -1,6 +1,7 @@
 from . import config
 from . import ankiword
 from . import ankiwordeditor
+from . import ankiwordeditorholder
 from . import metawordfinder
 from . import ankiwordmodel
 from . import htmldelegate
@@ -24,6 +25,7 @@ importlib.reload(ankiwordview)
 importlib.reload(exampleswidget)
 importlib.reload(transcriptionwidget)
 importlib.reload(ankiwordeditor)
+importlib.reload(ankiwordeditorholder)
 
 import json #test purpose
 import aqt
@@ -35,6 +37,7 @@ from .metawordfinder import MetawordFinder
 from .ankiwordview import AnkiwordView
 from .ankiwordmodel import AnkiwordModel
 from .ankiwordeditor import AnkiwordEditor
+from .ankiwordeditorholder import AnkiwordEditorHolder
 from .ankiinterface import AnkiInterface
 
 import traceback
@@ -73,7 +76,7 @@ class MetawordWindow(QWidget):
 
         self.metawordFinder.newMetaword.connect(self.setMetaword)
 
-        ankiwordEditor = AnkiwordEditor(self)
+        ankiwordEditor = AnkiwordEditorHolder(parent=self)
         vbox.addWidget(ankiwordEditor)
         self.ankiwordEdit = ankiwordEditor
         self.ankiwordView.getEditor = lambda: self.ankiwordEdit
