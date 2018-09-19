@@ -62,6 +62,7 @@ class AnkiwordModel(TreeModel):
         self.beginInsertRows(partOfSpeechLevelIndex, index, index)
         partOfSpeechLevel.childs.insert(index, AnkiwordItem(ankiword, partOfSpeechLevel))
         self.endInsertRows()
+        return self.index(index, 0, partOfSpeechLevelIndex)
 
     @staticmethod
     def _findAproppriateIndex(ankiwordList, newAnkiword):

@@ -1,5 +1,5 @@
 """This module define AnkiwordEditor widget, that used for editing Ankiword"""
-
+import copy
 from aqt.qt import (QWidget, QGridLayout, QLabel, QTextEdit,
                     QLineEdit, QComboBox, QAbstractItemView,
                     QListWidget, Qt, QMargins)
@@ -87,19 +87,29 @@ class AnkiwordEditor(QWidget):
         self.examplesEdit = widget
         row += 2
 
-    @property
+    
     def ankiword(self):
         """Construct Ankiword from widget"""
-        return self._ankiword
+        # Don't modify saved ankiword - create new one
+        ankiword = copy.deepcopy(self._ankiword)
+        
+        ankiword.lettering = str(self.letteringEdit.text())
+        ankiword.hint = str(self.hintEdit.text())
+        ankiword.partOfSpeech = str(self.partOfSpeechEdit.text())
+        ankiword.definition = str(self.definitionEdit.toPlainText())
 
-    @ankiword.setter
-    def ankiword(self, newAnkiword):
+        ankiword.examples = self.examplesEdit.entries
+        ankiword.transcriptions = self.transcriptionEdit.entries
+
+        return ankiword
+
+   
+    def setAnkiword(self, newAnkiword):
         self._ankiword = newAnkiword
         
         self.letteringEdit.setText(newAnkiword.lettering)
         self.hintEdit.setText(newAnkiword.hint)
         self.partOfSpeechEdit.setText(newAnkiword.partOfSpeech)
-
         self.definitionEdit.setText(newAnkiword.definition)
 
         self.transcriptionEdit.entries = newAnkiword.transcriptions

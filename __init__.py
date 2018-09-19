@@ -76,7 +76,7 @@ class MetawordWindow(QWidget):
 
         self.metawordFinder.newMetaword.connect(self.setMetaword)
 
-        ankiwordEditor = AnkiwordEditorHolder(parent=self)
+        ankiwordEditor = AnkiwordEditorHolder(ankiInterface=self.ankiInterface, parent=self)
         vbox.addWidget(ankiwordEditor)
         self.ankiwordEdit = ankiwordEditor
         self.ankiwordView.getEditor = lambda: self.ankiwordEdit

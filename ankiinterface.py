@@ -16,6 +16,8 @@ def createNewModel(modelName):
 
 class NoModel(Exception):
     pass
+class AlreadySaved(Exception):
+    pass
 
 class AnkiInterface:
     def __init__(self, modelName):
@@ -24,24 +26,56 @@ class AnkiInterface:
 
         self.model = mw.col.models.byName(modelName)
 
-    def findAnkiwords(self, lettering):
+    def _findNotes(self, fieldName, fieldValue):
         notes = mw.col.db.execute('select id, flds from notes where mid = ? and flds like ?', 
-                                  self.model['id'], '%{0}%'.format(lettering))
-        letteringIndex = self._getFieldIndex('lettering')
+                                  self.model['id'], '%{0}%'.format(fieldValue))
+        fieldIndex = self._getFieldIndex(fieldName)
         founded = []
-        for nid, flds in notes:
-            fields = anki.utils.splitFields(flds)
-            if fields[letteringIndex] == lettering:
-                note = mw.col.getNote(nid)
-                ankiword = Ankiword.fromNote(note)
-                founded.append(ankiword)
-        return founded
+        return [nid for nid, flds in notes 
+                if anki.utils.splitFields(flds)[fieldIndex] == fieldValue]
+
+    def findAnkiwords(self, lettering):
+        noteIds = self._findNotes('lettering', lettering)
+        return [Ankiword.fromNote(mw.col.getNote(nid)) for nid in noteIds]
 
     def _getFieldIndex(self, fieldName):
         fieldModelName = config['fields'][fieldName]
         return next(field['ord'] for field in self.model['flds'] if field['name'] == fieldModelName)
 
+    @staticmethod
+    def _saveAnkiwordToNote(ankiword, note):
+        fields = config['fields']
+        def saveToNote(fieldName, data):
+            note[fields[fieldName]] = data
+
+        saveToNote('lettering', ankiword.lettering)
+        saveToNote('hint', ankiword.hint)
+        saveToNote('partOfSpeech', ankiword.partOfSpeech)
+        saveToNote('definition', ankiword.definition)
+
+        if len(ankiword.examples) > 0:
+            saveToNote('context', ankiword.examples[0])
+        if len(ankiword.examples) > 1:
+            saveToNote('example', ankiword.examples[1])
+
+        if len(ankiword.transcriptions) > 0:
+            saveToNote('transcription', ankiword.transcriptions[0][1])
+
     def saveAnkiword(self, ankiword):
+        note = anki.notes.Note(mw.col, self.model)
+
+        if self._findNotes('definition', ankiword.definition):
+            raise AlreadySaved()
+
+        self._saveAnkiwordToNote(ankiword, note)
+
+        if not ankiword.noteId:
+            mw.col.addNote(note)
+        else:
+            note.flush()
+        ankiword.noteId = note.id
+
+    def removeAnkiword(self, ankiword):
         pass
 
     @staticmethod

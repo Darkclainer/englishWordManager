@@ -1,10 +1,13 @@
+import aqt
 from aqt import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QPersistentModelIndex
 from .ankiwordeditor import AnkiwordEditor
+from .ankiinterface import AlreadySaved
 
 class AnkiwordEditorHolder(QWidget):
-    def __init__(self, parent=None, **kargs):
+    def __init__(self, ankiInterface, parent=None, **kargs):
         super().__init__(parent, **kargs)
 
+        self._ankiInterface = ankiInterface
         self._index = None
         self._ankiwordEditor = None
         self._mainLayout = None
@@ -14,7 +17,7 @@ class AnkiwordEditorHolder(QWidget):
     def bound(self, modelIndex):
         self._index = QPersistentModelIndex(modelIndex)
         ankiword = modelIndex.internalPointer().ankiword
-        self._ankiwordEditor.ankiword = ankiword
+        self._ankiwordEditor.setAnkiword(ankiword)
         self._updateButtons(ankiword)
 
     def _clearButtonLayout(self):
@@ -26,7 +29,18 @@ class AnkiwordEditorHolder(QWidget):
                 widget.deleteLater()
 
     def _saveAnkiword(self):
-        pass
+        if not self._index:
+            return
+        ankiword = self._ankiwordEditor.ankiword()
+        try:
+            self._ankiInterface.saveAnkiword(ankiword)
+        except AlreadySaved as e:
+            msg = 'Word with definition: "{0}" already saved!'.format(ankiword.definition)
+            aqt.utils.showInfo(msg)
+            return
+        model = self._index.model()
+        model.addAnkiword(ankiword)
+
     def _updateAnkiword(self):
         pass
     def _removeAnkiword(self):
@@ -34,6 +48,7 @@ class AnkiwordEditorHolder(QWidget):
 
     def _createButtonsForWebAnkiword(self):
         saveButton = QPushButton('Save', self)
+        saveButton.clicked.connect(self._saveAnkiword)
         self._buttonLayout.addWidget(saveButton)
 
         self._buttonLayout.addStretch(1)
