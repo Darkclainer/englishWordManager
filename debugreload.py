@@ -19,7 +19,7 @@ def reloadAll(moduleName):
 def _tryReload(module):
     try:
         importlib.reload(module)
-        sys.stderr.write('Reloaded: {0}\n'.format(module.__name__))
+        #sys.stderr.write('Reloaded: {0}\n'.format(module.__name__))
     except Exception as e:
         sys.stderr.write('FAILED load module: "{0}". Exception: {1}'.format(module.__name__, str(e)))
 

@@ -1,5 +1,5 @@
 import aqt
-from aqt import mw, QAction
+from aqt import mw, QAction, QKeySequence
 from .mainwindow import MainWindow
 from . import startmodule
 
@@ -13,5 +13,7 @@ def debugStart():
     startmodule.start()
 
 startAction = QAction("English word manager: start", mw)
+startAction.setShortcut(QKeySequence('Ctrl+M'))
 startAction.triggered.connect(debugStart)
+mw.form.menuTools.addSeparator()
 mw.form.menuTools.addAction(startAction)
