@@ -62,10 +62,12 @@ class AnkiInterface:
             saveToNote('transcription', ankiword.transcriptions[0][1])
 
     def saveAnkiword(self, ankiword):
-        note = anki.notes.Note(mw.col, self.model)
+        model = None if ankiword.noteId else self.model
+        note = anki.notes.Note(mw.col, model, ankiword.noteId)
 
-        if self._findNotes('definition', ankiword.definition):
-            raise AlreadySaved()
+        for nid in self._findNotes('definition', ankiword.definition):
+            if nid != ankiword.noteId:
+                raise AlreadySaved()
 
         self._saveAnkiwordToNote(ankiword, note)
 
@@ -76,7 +78,8 @@ class AnkiInterface:
         ankiword.noteId = note.id
 
     def removeAnkiword(self, ankiword):
-        pass
+        if ankiword.noteId:
+            mw.col.remNotes([ankiword.noteId])
 
     @staticmethod
     def _checkModel(modelName):

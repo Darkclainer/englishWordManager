@@ -1,5 +1,5 @@
 import aqt
-from aqt import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QPersistentModelIndex
+from aqt import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QPersistentModelIndex, QModelIndex
 from .ankiwordeditor import AnkiwordEditor
 from .ankiinterface import AlreadySaved
 
@@ -29,7 +29,7 @@ class AnkiwordEditorHolder(QWidget):
                 widget.deleteLater()
 
     def _saveAnkiword(self):
-        if not self._index:
+        if not self._index or not self._index.isValid():
             return
         ankiword = self._ankiwordEditor.ankiword()
         try:
@@ -42,9 +42,25 @@ class AnkiwordEditorHolder(QWidget):
         model.addAnkiword(ankiword)
 
     def _updateAnkiword(self):
-        pass
+        if not self._index or not self._index.isValid():
+            return
+        ankiword = self._ankiwordEditor.ankiword()
+        self._ankiInterface.saveAnkiword(ankiword)
+
+        index = QModelIndex(self._index)
+        model = index.model()
+        model.removeByIndex(index)
+        self._index = QPersistentModelIndex(model.addAnkiword(ankiword))
+
     def _removeAnkiword(self):
-        pass
+        if not self._index or not self._index.isValid():
+            return
+        
+        self._ankiInterface.removeAnkiword(self._ankiwordEditor.ankiword())
+
+        index = QModelIndex(self._index)
+        index.model().removeByIndex(index)
+        self._index = None
 
     def _createButtonsForWebAnkiword(self):
         saveButton = QPushButton('Save', self)
@@ -55,9 +71,11 @@ class AnkiwordEditorHolder(QWidget):
 
     def _createButtonsForLocalAnkiword(self):
         updateButton = QPushButton('Update', self)
+        updateButton.clicked.connect(self._updateAnkiword)
         self._buttonLayout.addWidget(updateButton)
 
         removeButton = QPushButton('Remove', self)
+        removeButton.clicked.connect(self._removeAnkiword)
         self._buttonLayout.addWidget(removeButton)
 
         self._buttonLayout.addStretch(1)

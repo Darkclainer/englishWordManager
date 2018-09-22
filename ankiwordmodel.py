@@ -64,6 +64,21 @@ class AnkiwordModel(TreeModel):
         self.endInsertRows()
         return self.index(index, 0, partOfSpeechLevelIndex)
 
+    def removeByIndex(self, index):
+        if not index.isValid():
+            return
+
+        parentIndex = self.parent(index)
+        parentItem = self.getItemByIndex(parentIndex)
+
+        row = index.row()
+        self.beginRemoveRows(parentIndex, row, row)
+        del parentItem.childs[row]
+        self.endRemoveRows()
+
+        if len(parentItem.childs) == 0:
+            self.removeByIndex(parentIndex)
+
     @staticmethod
     def _findAproppriateIndex(ankiwordList, newAnkiword):
         if not newAnkiword.noteId:
@@ -75,6 +90,8 @@ class AnkiwordModel(TreeModel):
                              for i, ankiword in enumerate(ankiwordList))
         indexWithDistance = list(indexWithDistance)
         # compare by distance
+        if not indexWithDistance:
+            return 1
         newIndex = min(indexWithDistance, key=lambda k: k[1])[0]
         return newIndex + 1
 
