@@ -62,7 +62,10 @@ class AnkiwordModel(TreeModel):
         self.beginInsertRows(partOfSpeechLevelIndex, index, index)
         partOfSpeechLevel.childs.insert(index, AnkiwordItem(ankiword, partOfSpeechLevel))
         self.endInsertRows()
-        return self.index(index, 0, partOfSpeechLevelIndex)
+        myIndex = self.index(index, 0, partOfSpeechLevelIndex)
+        if not myIndex.isValid():
+            aqt.utils.showInfo("WHWHHHHAAAT!: " + str(index))
+        return myIndex
 
     def removeByIndex(self, index):
         if not index.isValid():
@@ -91,7 +94,7 @@ class AnkiwordModel(TreeModel):
         indexWithDistance = list(indexWithDistance)
         # compare by distance
         if not indexWithDistance:
-            return 1
+            return 0
         newIndex = min(indexWithDistance, key=lambda k: k[1])[0]
         return newIndex + 1
 
@@ -100,7 +103,7 @@ class AnkiwordModel(TreeModel):
         for ankiword in ankiwordList:
             self.addAnkiword(ankiword)
 
-    def setAnkiwordList(self, ankiwordList):
+    def resetAnkiwordList(self, ankiwordList):
         """Reset model and add new ankiwordList."""
         self.beginResetModel()
         self.rootItem = AnkiwordLevelItem(None)

@@ -1,13 +1,14 @@
 import json
-from aqt.qt import (QWidget, QVBoxLayout)
+import aqt
+from aqt.qt import (QWidget, QVBoxLayout, Qt)
 from . import config
 from .englishDictionary import Metaword
 from .ankiinterface import AnkiInterface
 from .metawordfinder import MetawordFinder
-from .ankiwordview import AnkiwordView
 from .ankiwordmodel import AnkiwordModel
 from .ankiwordeditorholder import AnkiwordEditorHolder
 from .ankiword import metawordToAnkiwordList
+from .ankiwordwidget import AnkiwordWidget
 
 def loadTestMetaword():
     with open('/home/dio/.local/share/Anki2/addons21/englishWordManager/testmetaword.json') as f:
@@ -24,6 +25,7 @@ class MainWindow(QWidget):
         self.setMinimumSize(500, 700)
         self.setupUI()
 
+        self.setAttribute(Qt.WA_DeleteOnClose, True)
 
     def setupUI(self):
         vbox = QVBoxLayout()
@@ -32,22 +34,18 @@ class MainWindow(QWidget):
         self.metawordFinder = MetawordFinder()
         vbox.addWidget(self.metawordFinder)
 
-        self.ankiwordView = AnkiwordView()
-        vbox.addWidget(self.ankiwordView)
-
-        self.ankiwordModel = AnkiwordModel(ankiInterface=self.ankiInterface)
-        self.ankiwordView.setModel(self.ankiwordModel)
-        self.setMetaword(loadTestMetaword())
-
         self.metawordFinder.newMetaword.connect(self.setMetaword)
 
-        ankiwordEditor = AnkiwordEditorHolder(ankiInterface=self.ankiInterface, parent=self)
-        vbox.addWidget(ankiwordEditor)
-        self.ankiwordEdit = ankiwordEditor
-        self.ankiwordView.getEditor = lambda: self.ankiwordEdit
+        #ankiwordEditor = AnkiwordEditorHolder(ankiInterface=self.ankiInterface, parent=self)
+        #vbox.addWidget(ankiwordEditor)
+        #self.ankiwordEdit = ankiwordEditor
+        #self.ankiwordView.getEditor = lambda: self.ankiwordEdit
+
+        self.ankiwordWidget = AnkiwordWidget(ankiInterface=self.ankiInterface)
+        vbox.addWidget(self.ankiwordWidget)
+        self.setMetaword(loadTestMetaword())
 
         self.show()
-
 
     def setMetaword(self, metaword):
         ankiwords = metawordToAnkiwordList(metaword)
@@ -57,6 +55,5 @@ class MainWindow(QWidget):
         for lettering in letterings:
             ankiwords.extend(self.ankiInterface.findAnkiwords(lettering))
 
-        self.ankiwordModel.setAnkiwordList(ankiwords)
+        self.ankiwordWidget.resetAnkiwordList(ankiwords)
 
-        self.ankiwordView.expandAll()

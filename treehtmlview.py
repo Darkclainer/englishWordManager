@@ -6,6 +6,7 @@ class TreeHtmlView(QTreeView):
     """Like simple QTreeView, but uses HtmlDelegate to render cells."""
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.setHeaderHidden(True)
         self.setItemDelegate(HtmlDelegate())
 
     def resizeEvent(self, event):
