@@ -91,7 +91,7 @@ class AnkiwordEditor(QWidget):
     def ankiword(self):
         """Construct Ankiword from widget"""
         # Don't modify saved ankiword - create new one
-        ankiword = copy.deepcopy(self._ankiword)
+        ankiword = copy.copy(self._ankiword)
         
         ankiword.lettering = str(self.letteringEdit.text())
         ankiword.hint = str(self.hintEdit.text())
