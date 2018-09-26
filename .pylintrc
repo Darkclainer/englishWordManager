@@ -15,7 +15,7 @@ ignore-patterns=
 
 # Python code to execute, usually for sys.path manipulation such as
 # pygtk.require().
-init-hook='import sys; sys.path=["/usr/local/share/anki/bin/base_library.zip", "/usr/local/share/anki/bin", "/usr/share/anki"]'
+init-hook='import sys; sys.path=["/usr/local/share/anki/bin/base_library.zip", "/usr/local/share/anki/bin", "~/Documents/anki"]'
 
 # Use multiple processes to speed up Pylint. Specifying 0 will auto-detect the
 # number of processors available to use.

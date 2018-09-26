@@ -1,5 +1,4 @@
 """This module define Ankiword class and metawordToAnkiwordList function"""
-from .config import config
 
 class Ankiword:
     """Class used to bound Word with Anki"""
@@ -33,7 +32,7 @@ class Ankiword:
         return ankiword
 
     @staticmethod
-    def fromNote(note):
+    def fromNote(note, config):
         """Construct Ankiword from Note (from anki database). That function also sets noteId"""
         fields = config['fields']
         def getFromNote(fieldName):

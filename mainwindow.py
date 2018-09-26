@@ -1,12 +1,7 @@
 import json
-import aqt
 from aqt.qt import (QWidget, QVBoxLayout, Qt)
-from . import config
 from .englishDictionary import Metaword
-from .ankiinterface import AnkiInterface
 from .metawordfinder import MetawordFinder
-from .ankiwordmodel import AnkiwordModel
-from .ankiwordeditorholder import AnkiwordEditorHolder
 from .ankiword import metawordToAnkiwordList
 from .ankiwordwidget import AnkiwordWidget
 
@@ -17,10 +12,10 @@ def loadTestMetaword():
     return Metaword.fromSON(metawordJson)
 
 class MainWindow(QWidget):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None, *, ankiInterface, **kargs):
+        super().__init__(parent, **kargs)
 
-        self.ankiInterface = AnkiInterface(config.config['modelName'])
+        self.ankiInterface = ankiInterface
 
         self.setMinimumSize(500, 700)
         self.setupUI()
@@ -35,11 +30,6 @@ class MainWindow(QWidget):
         vbox.addWidget(self.metawordFinder)
 
         self.metawordFinder.newMetaword.connect(self.setMetaword)
-
-        #ankiwordEditor = AnkiwordEditorHolder(ankiInterface=self.ankiInterface, parent=self)
-        #vbox.addWidget(ankiwordEditor)
-        #self.ankiwordEdit = ankiwordEditor
-        #self.ankiwordView.getEditor = lambda: self.ankiwordEdit
 
         self.ankiwordWidget = AnkiwordWidget(ankiInterface=self.ankiInterface)
         vbox.addWidget(self.ankiwordWidget)
@@ -56,4 +46,3 @@ class MainWindow(QWidget):
             ankiwords.extend(self.ankiInterface.findAnkiwords(lettering))
 
         self.ankiwordWidget.resetAnkiwordList(ankiwords)
-

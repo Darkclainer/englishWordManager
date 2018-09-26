@@ -1,5 +1,6 @@
 {
-    "modelName": "EnglishWord",
+    "modelName": "AEnglishWord",
+    "deck": "EnglishWords",
     "fields":
     {
         "lettering": "Original",

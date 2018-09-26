@@ -1,18 +1,7 @@
 import anki
 from aqt import mw
-from .config import config
 from .ankiword import Ankiword
 
-
-def createNewModel(modelName):
-    # modelName must be unique
-    model = mw.col.models.new(modelName)
-    mw.col.models.add(model)
-
-    fieldNames = config['fields'].values()
-    for fieldName in fieldNames:
-        newField = mw.col.models.newField(fieldName)
-        mw.col.models.addField(model, newField)
 
 class NoModel(Exception):
     pass
@@ -20,11 +9,12 @@ class AlreadySaved(Exception):
     pass
 
 class AnkiInterface:
-    def __init__(self, modelName):
+    def __init__(self, config):
         # We need check is there such model and have it necessary fields
-        self._checkModel(modelName)
+        self.config = config
+        self._checkModel(config['modelName'])
 
-        self.model = mw.col.models.byName(modelName)
+        self.model = mw.col.models.byName(config['modelName'])
 
     def _findNotes(self, fieldName, fieldValue):
         notes = mw.col.db.execute('select id, flds from notes where mid = ? and flds like ?', 
@@ -36,15 +26,14 @@ class AnkiInterface:
 
     def findAnkiwords(self, lettering):
         noteIds = self._findNotes('lettering', lettering)
-        return [Ankiword.fromNote(mw.col.getNote(nid)) for nid in noteIds]
+        return [Ankiword.fromNote(mw.col.getNote(nid), self.config) for nid in noteIds]
 
     def _getFieldIndex(self, fieldName):
-        fieldModelName = config['fields'][fieldName]
+        fieldModelName = self.config['fields'][fieldName]
         return next(field['ord'] for field in self.model['flds'] if field['name'] == fieldModelName)
 
-    @staticmethod
-    def _saveAnkiwordToNote(ankiword, note):
-        fields = config['fields']
+    def _saveAnkiwordToNote(self, ankiword, note):
+        fields = self.config['fields']
         def saveToNote(fieldName, data):
             note[fields[fieldName]] = data
 
@@ -81,18 +70,16 @@ class AnkiInterface:
         if ankiword.noteId:
             mw.col.remNotes([ankiword.noteId])
 
-    @staticmethod
-    def _checkModel(modelName):
+    def _checkModel(self, modelName):
         model = mw.col.models.byName(modelName)
         if not model:
             raise NoModel('Not found model: "{0}".'.format(modelName))
 
-        AnkiInterface._checkModelFields(model)
+        self._checkModelFields(model)
 
-    @staticmethod
-    def _checkModelFields(model):
+    def _checkModelFields(self, model):
         modelFieldNames = mw.col.models.fieldNames(model)
-        mustBeFieldNames = config['fields'].values()
+        mustBeFieldNames = self.config['fields'].values()
         #aqt.utils.showInfo('Models: {0}\nMustBe: {1}'.format(modelFieldNames, mustBeFieldNames))
         for fieldName in mustBeFieldNames:
             if not fieldName in modelFieldNames:
