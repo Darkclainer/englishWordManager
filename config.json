@@ -1,15 +1,15 @@
 {
-    "modelName": "AEnglishWord",
+    "modelName": "EnglishWord",
     "deck": "EnglishWords",
     "fields":
     {
-        "lettering": "Original",
+        "lettering": "Lettering",
         "hint": "GuideWord",
         "partOfSpeech": "PartOfSpeech",
-        "definition": "EnglishDescription",
+        "definition": "Definition",
         "transcription": "Transcription",
         "context": "Context",
-        "example": "ExampleSentence",
+        "example": "Example",
         "language": "Language"
     },
     "fieldsOrd":
