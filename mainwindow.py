@@ -1,4 +1,5 @@
 import json
+import aqt
 from aqt.qt import (QWidget, QVBoxLayout, Qt)
 from .englishDictionary import Metaword
 from .metawordfinder import MetawordFinder
@@ -12,8 +13,8 @@ def loadTestMetaword():
     return Metaword.fromSON(metawordJson)
 
 class MainWindow(QWidget):
-    def __init__(self, parent=None, *, ankiInterface, **kargs):
-        super().__init__(parent, **kargs)
+    def __init__(self, *, ankiInterface, **kargs):
+        super().__init__(**kargs)
 
         self.ankiInterface = ankiInterface
 
@@ -46,3 +47,7 @@ class MainWindow(QWidget):
             ankiwords.extend(self.ankiInterface.findAnkiwords(lettering))
 
         self.ankiwordWidget.resetAnkiwordList(ankiwords)
+        
+    def closeEvent(self, event):
+        aqt.mw.reset()
+        super().closeEvent(event)
