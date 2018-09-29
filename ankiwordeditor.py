@@ -87,6 +87,17 @@ class AnkiwordEditor(QWidget):
         self.examplesEdit = widget
         row += 2
 
+    @staticmethod
+    def _sortTranscriptions(transcriptions, preferredTranscription):
+        result = list(transcriptions)
+        def key(entry):
+            region, _ = entry
+            if region == preferredTranscription:
+                return 0
+            else:
+                return 1
+        result.sort(key=key)
+        return result
     
     def ankiword(self):
         """Construct Ankiword from widget"""
@@ -99,6 +110,7 @@ class AnkiwordEditor(QWidget):
         ankiword.definition = str(self.definitionEdit.toPlainText())
 
         ankiword.examples = self.examplesEdit.entries
+
         ankiword.transcriptions = self.transcriptionEdit.entries
 
         return ankiword
@@ -112,5 +124,7 @@ class AnkiwordEditor(QWidget):
         self.partOfSpeechEdit.setText(newAnkiword.partOfSpeech)
         self.definitionEdit.setText(newAnkiword.definition)
 
-        self.transcriptionEdit.entries = newAnkiword.transcriptions
+        preferredTranscription = self.parent().ankiInterface.config['preferredTranscription']
+        self.transcriptionEdit.entries = self._sortTranscriptions(newAnkiword.transcriptions,
+                                                                  preferredTranscription)
         self.examplesEdit.entries = newAnkiword.examples

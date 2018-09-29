@@ -12,7 +12,7 @@ class AnkiwordEditorHolder(QWidget):
         super().__init__(parent, **kargs)
 
         self.ankiwordWidget = ankiwordWidget
-        self._ankiInterface = ankiwordWidget.ankiInterface
+        self.ankiInterface = ankiwordWidget.ankiInterface
         self.index = None
         self._ankiwordEditor = None
         self._mainLayout = None
@@ -58,7 +58,7 @@ class AnkiwordEditorHolder(QWidget):
             return
         ankiword = self._ankiwordEditor.ankiword()
         try:
-            self._ankiInterface.saveAnkiword(ankiword)
+            self.ankiInterface.saveAnkiword(ankiword)
         except AlreadySaved as e:
             msg = 'Word with definition: "{0}" already saved!'.format(ankiword.definition)
             aqt.utils.showInfo(msg)
@@ -71,7 +71,7 @@ class AnkiwordEditorHolder(QWidget):
         if not self.index or not self.index.isValid():
             return
         ankiword = self._ankiwordEditor.ankiword()
-        self._ankiInterface.saveAnkiword(ankiword)
+        self.ankiInterface.saveAnkiword(ankiword)
 
         self.ankiwordWidget.removeByIndex(self.index)
         newIndex = self.ankiwordWidget.addAnkiword(ankiword)
@@ -82,7 +82,7 @@ class AnkiwordEditorHolder(QWidget):
         if not self.index or not self.index.isValid():
             return
         
-        self._ankiInterface.removeAnkiword(self._ankiwordEditor.ankiword())
+        self.ankiInterface.removeAnkiword(self._ankiwordEditor.ankiword())
 
         index = QModelIndex(self.index)
         index.model().removeByIndex(index)
