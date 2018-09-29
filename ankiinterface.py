@@ -50,6 +50,8 @@ class AnkiInterface:
         if len(ankiword.transcriptions) > 0:
             saveToNote('transcription', ankiword.transcriptions[0][1])
 
+        saveToNote('language', ankiword.language)
+
     def saveAnkiword(self, ankiword):
         model = None if ankiword.noteId else self.model
         note = anki.notes.Note(mw.col, model, ankiword.noteId)
