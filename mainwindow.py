@@ -6,12 +6,6 @@ from .metawordfinder import MetawordFinder
 from .ankiword import metawordToAnkiwordList
 from .ankiwordwidget import AnkiwordWidget
 
-def loadTestMetaword():
-    with open('/home/dio/.local/share/Anki2/addons21/englishWordManager/testmetaword.json') as f:
-        metawordJson = json.load(f)
-
-    return Metaword.fromSON(metawordJson)
-
 class MainWindow(QWidget):
     def __init__(self, *, ankiInterface, **kargs):
         super().__init__(**kargs)
@@ -34,7 +28,6 @@ class MainWindow(QWidget):
 
         self.ankiwordWidget = AnkiwordWidget(ankiInterface=self.ankiInterface)
         vbox.addWidget(self.ankiwordWidget)
-        self.setMetaword(loadTestMetaword())
 
         self.show()
 
