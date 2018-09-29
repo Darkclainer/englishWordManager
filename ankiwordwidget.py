@@ -2,6 +2,7 @@ from aqt.utils import showInfo
 from aqt.qt import (QObject, QWidget, QVBoxLayout, QPersistentModelIndex,
                     QModelIndex, Qt)
 from .treehtmlview import TreeHtmlView
+from .ankiwordmodel import AnkiwordItem
 from .ankiwordmodel import AnkiwordModel
 from .ankiwordeditorholder import AnkiwordEditorHolder
 
@@ -15,12 +16,13 @@ class AnkiwordWidget(TreeHtmlView):
 
         self.editorManager = EditorManager(self)
 
-        self.doubleClicked.connect(self.doubleClickedSlot)
+        self.clicked.connect(self.openEditor)
 
         self.destroyed.connect(self.editorManager.closeAll)
 
-    def doubleClickedSlot(self, index):
-        self.editorManager.openEditor(index)
+    def openEditor(self, index):
+        if isinstance(index.internalPointer(), AnkiwordItem):
+            self.editorManager.openEditor(index)
 
     def resetAnkiwordList(self, ankiwordList):
         self.model().resetAnkiwordList(ankiwordList)
