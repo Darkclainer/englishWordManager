@@ -51,10 +51,7 @@ WORD_DEFINITION_Q = '''
 WORD_DEFINITION_A = '''
 <div class="big" id="Head">
     {{%(lettering)s}}
-
-    ({{#%(hint)s}}
-        {{hint}}
-    {{/%(hint)s}})
+    {{#%(hint)s}}({{%(hint)s}}){{/%(hint)s}}
 </div>
 
 </br>
@@ -116,7 +113,7 @@ DEFINITION_WORD_A = '''
 
 <div class="big" id="Head">
     {{%(lettering)s}}
-    ({{#%(hint)s}}{{hint}}{{/%(hint)s}})
+    {{#%(hint)s}}({{%(hint)s}}){{/%(hint)s}}
 </div>
 
 </br>
