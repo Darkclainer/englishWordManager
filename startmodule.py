@@ -1,6 +1,7 @@
 """This module define function start that called on triggering action in anki menu"""
 import aqt
 from .config import getConfig, setConfig
+from . import templates
 from .ankiinterface import AnkiInterface, NoModel
 from .mainwindow import MainWindow
 
@@ -59,17 +60,37 @@ def getNewModelName(config, msgReason):
     else: # Cancel
         return None
 
+def addTemplate(config, model, name, templateQ, templateA):
+    template = aqt.mw.col.models.newTemplate(name)
+    template['qfmt'] = templateQ % config['fields']
+    template['afmt'] = templateA % config['fields']
+
+    template['did'] = aqt.mw.col.decks.id(config['deck'])
+
+    aqt.mw.col.models.addTemplate(model, template)
+
+def addTemplates(config, model):
+    addTemplate(config, model, 'WordDefinition',
+                templates.WORD_DEFINITION_Q, templates.WORD_DEFINITION_A)
+    addTemplate(config, model, 'DefinitionWord',
+                templates.DEFINITION_WORD_Q, templates.DEFINITION_WORD_Q)
+
 def createNewModel(config, modelName):
+    models = aqt.mw.col.models
     # modelName must be unique
-    model = aqt.mw.col.models.new(modelName)
-    aqt.mw.col.models.add(model)
+    model = models.new(modelName)
+    model['css'] = templates.CSS
+    models.add(model)
 
-    fieldNames = config['fields'].values()
-    for fieldName in fieldNames:
-        newField = aqt.mw.col.models.newField(fieldName)
-        aqt.mw.col.models.addField(model, newField)
+    fieldNames = config['fields']
+    fieldOrds = config['fieldsOrd']
+    for originalFieldName in fieldOrds:
+        fieldName = fieldNames[originalFieldName]
+        newField = models.newField(fieldName)
+        models.addField(model, newField)
 
+    fieldMap = models.fieldMap(model)
+    idx = fieldMap[fieldNames['lettering']][0]
+    models.setSortIdx(model, idx)
+    addTemplates(config, model)
     return model['name']
-
-    # add template
-    

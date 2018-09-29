@@ -12,6 +12,17 @@
         "example": "ExampleSentence",
         "language": "Language"
     },
+    "fieldsOrd":
+    [
+        "definition",
+        "lettering",
+        "hint",
+        "partOfSpeech",
+        "transcription",
+        "context",
+        "example",
+        "language"
+    ],
     "preferredTranscription": "uk",
     "preferredLanguage": "british"
 }
