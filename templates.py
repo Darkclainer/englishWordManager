@@ -73,7 +73,7 @@ WORD_DEFINITION_A = '''
 <hr id=answer>
 
 <div class="medsmall">
-    [{{%(transcription)s}}]
+    {{#%(transcription)s}}[{{%(transcription)s}}]{{/%(transcription)s}}
 </div>
 
 </br>
@@ -135,7 +135,7 @@ DEFINITION_WORD_A = '''
 </br>
 
 <div class="medsmall">
-    [{{%(transcription)s}}]
+    {{#%(transcription)s}}[{{%(transcription)s}}]{{/%(transcription)s}}
 </div>
 
 </br>
