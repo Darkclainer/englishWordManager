@@ -38,7 +38,7 @@ WORD_DEFINITION_Q = '''
 </div>
 
 <div class="small">
-    {{#%(hint)s}}({{hint:%(hint)s}}){{/%(hint)s}}
+    {{#%(hint)s}}{{hint:%(hint)s}}{{/%(hint)s}}
 </div>
 
 <div class="small">
