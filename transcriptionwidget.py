@@ -1,6 +1,4 @@
-"""This module define TranscriptionsWidget and TranscriptionsModel for editing transcriptions
-of ankiword.
-"""
+"""This module define TranscriptionsWidget and TranscriptionsModel."""
 from aqt.qt import Qt
 from .movablelist import MovableListModel, MovableListWidget
 from .htmldelegate import HtmlDelegate
@@ -17,9 +15,8 @@ class TranscriptionsDelegate(HtmlDelegate):
     def setModelData(self, widget, model, index):
         """Overrided."""
         region, transcription = index.data(Qt.EditRole)
-        newEntry = (region , str(widget.text()))
+        newEntry = (region, str(widget.text()))
         model.setData(index, newEntry, Qt.EditRole)
-        
 
 class TranscriptionsWidget(MovableListWidget):
     """Subclass of MovableListWidget, the only purpose - set TranscriptionsModel as model."""

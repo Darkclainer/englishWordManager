@@ -1,14 +1,13 @@
-"""This module for debug purpose only. 
+"""This module for debug purpose only.
 
-It define function reloadALl that recursively in module reverse load order reloads modules"""
+It defines function reloadAll that recursively reloads modules."""
 import sys
-import os
 import importlib
 import types
-import aqt
 
 def reloadAll(moduleName):
-    permitted =  {module for module in sys.modules.values() if module.__name__.startswith(moduleName)}
+    permitted = {module for module in sys.modules.values()
+                 if module.__name__.startswith(moduleName)}
     # delete self
     permitted.remove(sys.modules[__name__])
     # delete __init__
@@ -20,8 +19,10 @@ def _tryReload(module):
     try:
         importlib.reload(module)
         #sys.stderr.write('Reloaded: {0}\n'.format(module.__name__))
-    except Exception as e:
-        sys.stderr.write('FAILED load module: "{0}". Exception: {1}'.format(module.__name__, str(e)))
+    except Exception as exception:
+        msg = 'FAILED load module: "{0}". Exception: {1}'.format(module.__name__,
+                                                                 str(exception))
+        sys.stderr.write(msg)
 
 def _reloadInnerModule(module, permitted, reloaded):
     if module in permitted and module not in reloaded:

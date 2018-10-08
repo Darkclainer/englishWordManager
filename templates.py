@@ -1,3 +1,5 @@
+"""This module defines various templates that is used in model."""
+
 CSS = '''
 .card {
  font-family: arial;
@@ -32,7 +34,10 @@ CSS = '''
 }
 '''
 
-WORD_DEFINITION_Q = '''
+CARD_TEMPLATES = [
+    {'name': 'Word -> definition',
+
+     'question': '''
 <div class="big" id="Head">
     {{%(lettering)s}}
 </div>
@@ -50,9 +55,9 @@ WORD_DEFINITION_Q = '''
         {{hint:%(partOfSpeech)s}}
     </div>
 {{/%(partOfSpeech)s}}
-'''
+''',
 
-WORD_DEFINITION_A = '''
+     'answer': '''
 <div class="big" id="Head">
     {{%(lettering)s}}
     {{#%(hint)s}}({{%(hint)s}}){{/%(hint)s}}
@@ -96,17 +101,20 @@ WORD_DEFINITION_A = '''
         {{%(example)s}}
     </div>
 {{/%(example)s}}
-'''
+'''},
 
-DEFINITION_WORD_Q = '''
+
+    {'name': 'Definition -> word',
+
+     'question':  '''
 <div classs="med" id="Head">
     <u>Meaning:</u>
     </br>
     {{%(definition)s}}
 </div>
-'''
+''',
 
-DEFINITION_WORD_A = '''
+     'answer': '''
 <div classs="med" id="Head">
     <u>Meaning:</u>
     </br>
@@ -147,4 +155,5 @@ DEFINITION_WORD_A = '''
         {{%(example)s}}
     </div>
 {{/%(example)s}}
-'''
+'''}
+]

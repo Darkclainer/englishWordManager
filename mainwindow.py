@@ -1,37 +1,38 @@
-import json
+"""This module defines the main window of widget."""
 import aqt
 from aqt.qt import (QWidget, QVBoxLayout, Qt)
-from .englishDictionary import Metaword
 from .metawordfinder import MetawordFinder
 from .ankiword import metawordToAnkiwordList
-from .ankiwordwidget import AnkiwordWidget
+from .ankiwordlistwidget import AnkiwordListWidget
 
 class MainWindow(QWidget):
+    """The main window of widget, which includes input widget and list of ankiwords."""
+
     def __init__(self, *, ankiInterface, **kargs):
         super().__init__(**kargs)
 
         self.ankiInterface = ankiInterface
 
         self.setMinimumSize(500, 700)
-        self.setupUI()
+        self._setupUI()
 
         self.setAttribute(Qt.WA_DeleteOnClose, True)
 
-    def setupUI(self):
+    def _setupUI(self):
         vbox = QVBoxLayout()
         self.setLayout(vbox)
 
         self.metawordFinder = MetawordFinder()
         vbox.addWidget(self.metawordFinder)
-
         self.metawordFinder.newMetaword.connect(self.setMetaword)
 
-        self.ankiwordWidget = AnkiwordWidget(ankiInterface=self.ankiInterface)
-        vbox.addWidget(self.ankiwordWidget)
+        self.ankiwordListWidget = AnkiwordListWidget(ankiInterface=self.ankiInterface)
+        vbox.addWidget(self.ankiwordListWidget)
 
         self.show()
 
     def setMetaword(self, metaword):
+        """Break of metaword to ankiwords and add local ankiword to widget."""
         ankiwords = metawordToAnkiwordList(metaword)
 
         # now find words from anki database and add it to list
@@ -39,8 +40,9 @@ class MainWindow(QWidget):
         for lettering in letterings:
             ankiwords.extend(self.ankiInterface.findAnkiwords(lettering))
 
-        self.ankiwordWidget.resetAnkiwordList(ankiwords)
-        
+        self.ankiwordListWidget.resetAnkiwordList(ankiwords)
+
     def closeEvent(self, event):
+        """Overrided. Update aqt interface."""
         aqt.mw.reset()
         super().closeEvent(event)

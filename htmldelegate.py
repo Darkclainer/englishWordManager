@@ -1,7 +1,7 @@
 """This module define HTMLDeletate. Special delegate that can render html tags"""
-from aqt.qt import (Qt, QStyledItemDelegate, QStyle, QApplication,
-                    QTextOption, QTextDocument, QAbstractTextDocumentLayout,
-                    QSize, QBrush, QColor, QTransform)
+
+from aqt.qt import (Qt, QStyledItemDelegate, QStyle, QApplication, QSize,
+                    QTextOption, QTextDocument, QAbstractTextDocumentLayout)
 
 class HtmlDelegate(QStyledItemDelegate):
     """Delegate that can render html tags and can transform cell height to fit content"""
