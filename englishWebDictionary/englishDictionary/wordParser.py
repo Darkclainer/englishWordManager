@@ -28,9 +28,14 @@ def parse(htmlText, parser = 'html.parser'):
     return metaword
 
 def _prettifyString(s):
-    s = s.replace('\n', '')
+    s = s.replace('\n', ' ')
     s = re.sub('\s\s+', ' ', s)
     return s.strip()
+
+def _definitionString(s):
+    if s[-1] == ':':
+        s = s[:-1]
+    return s
 
 def _getWordDataSets(content):
     'Extract tags that content various definitions of words in various languages'
@@ -107,9 +112,9 @@ def _makeWordFromHeader(headerTag, language):
     return word
 
 def _addTranscriptionsFromHeader(headerTag, word):
-    transcriptionTags = headerTag.findAll(class_='pron-info', recursive=False)
-    for transcriptionTag in transcriptionTags:
-        _addTranscriptionFromTag(transcriptionTag, word)
+    pronInfoTags = headerTag.findAll(class_='pron-info', recursive=False)
+    for pronInfo in pronInfoTags:
+        _addTranscriptionFromPronInfo(pronInfo, word)
 
 def ipaTagParser(ipaTag):
     parts = []
@@ -124,14 +129,14 @@ def ipaTagParser(ipaTag):
     return ''.join(parts)
 
 
-def _addTranscriptionFromTag(transcriptionTag, word):
-    regionTag = transcriptionTag.find('span', class_='region')
-    ipaTag = transcriptionTag.find('span', class_='ipa')
-    if not regionTag or not ipaTag:
+def _addTranscriptionFromPronInfo(pronInfo, word):
+    regionTag = pronInfo.find('span', class_='region')
+    ipaTags = pronInfo.findAll('span', class_='ipa')
+    if not regionTag or not ipaTags:
         return
     region = str(regionTag.string).lower()
-    ipa = ipaTagParser(ipaTag)
-    word.transcriptions[region] = ipa
+    ipas = [ipaTagParser(ipaTag) for ipaTag in ipaTags]
+    word.transcriptions[region] = ', '.join(ipas)
 
 def _extractHintFromSenseBlock(senseBlock):
     txtBlock = senseBlock.find(class_='txt-block', recursive=False)
@@ -142,8 +147,8 @@ def _extractHintFromSenseBlock(senseBlock):
     if not guideWord:
         return None
 
-    guideStr = guideWord.getText()
-    hint = ''.join(char.lower() for char in guideStr if char.isalpha() or char.isspace())
+    guideStr = guideWord.span.getText()
+    hint = ''.join(char.lower() for char in guideStr) # if char.isalpha() or char.isspace())
     return hint.strip()
 
 
@@ -158,13 +163,13 @@ def _addDefinitionsFromSenseBlock(word, senseBlock):
 def _addDefinitionsFromSenseBody(word, senseBody, hint):
     for child in senseBody.findAll('div', recursive=False):
         if 'def-block' in child['class']:
-            definition = _getDefinitionFromDefBlock(child)
+            definitions = [_getDefinitionFromDefBlock(child)]
         elif 'phrase-block' in child['class']:
-            definition = _getDefinitionFromPhraseBlock(child)
+            definitions = _getDefinitionsFromPhraseBlock(child)
         else:
-            definition = None
+            definitions = range(0)
 
-        if definition:
+        for definition in definitions:
             definition.hint = hint
             word.addDefinition(definition)
 
@@ -180,7 +185,7 @@ def _getDefinitionFromDefBlock(defBlock):
 
 def _getDefinitionFromDefHead(defHead):
     defText = _prettifyString(defHead.find(class_='def', recursive=False).getText())
-    definition = Definition(defText)
+    definition = Definition(_definitionString(defText))
     
     defInfo = defHead.find(class_='def-info', recursive=False)
     if defInfo:
@@ -207,23 +212,22 @@ def _addDefinitionExamples(definition, defBody):
     for exampTag in defBody.findAll(class_='examp', recursive=False):
         definition.addExample(_prettifyString(exampTag.getText()))
 
-def _getDefinitionFromPhraseBody(phraseBody):
-    defBlock = phraseBody.find(class_='def-block', recursive=False)
-    if not defBlock:
-        return Definition()
-    else:
-        return _getDefinitionFromDefBlock(defBlock)
+def _getDefinitionsFromPhraseBody(phraseBody):
+    defBlocks = phraseBody.findAll(class_='def-block', recursive=False)
+    return [_getDefinitionFromDefBlock(defBlock) for defBlock in defBlocks]
 
-def _getDefinitionFromPhraseBlock(phraseBlock):
+def _getDefinitionsFromPhraseBlock(phraseBlock):
     phraseBody = phraseBlock.find(class_='phrase-body', recursive=False)
-    definition = _getDefinitionFromPhraseBody(phraseBody)
+    definitions = _getDefinitionsFromPhraseBody(phraseBody)
 
     phraseHead = phraseBlock.find(class_='phrase-head', recursive=False)
     phraseTag = phraseHead.find(class_='phrase')
-    if phraseTag:
-        definition.variant = phraseTag.getText()
+    variant = phraseTag.getText()
 
-    return definition
+    for definition in definitions:
+        definition.variant = variant
+
+    return definitions
 
 def _extractPartOfSpechFromPosHeader(posHeader):
     ancInfoHead = posHeader.find(class_='anc-info-head', recursive=False)
