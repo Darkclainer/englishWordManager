@@ -1,9 +1,5 @@
 '''A few function to convert latin character to they superscript and subscript equvivalence'''
-
-def toSuperscript(s):
-    table = toSuperscript.charTable
-    return ''.join(table[char] for char in s)
-toSuperscript.charTable = {
+script_to_superscript = {
     'a':'ᵃ',
     'b':'ᵇ',
     'c':'ᶜ',
@@ -32,10 +28,7 @@ toSuperscript.charTable = {
     'ə':'ᵊ'
 }
 
-def toSubscript(s):
-    table = toSubscript.charTable
-    return ''.join(table[char] for char in s)
-toSubscript.charTable = {
+script_to_subscript = { 
     'a':'ₐ',
     'e':'ₑ',
     'h':'ₕ',
@@ -54,3 +47,9 @@ toSubscript.charTable = {
     'v':'ᵥ',
     'x':'ₓ'
 }
+
+def superscript(sequence):
+    return ''.join(script_to_superscript[c] for c in sequence)
+
+def subscript(sequence):
+    return ''.join(script_to_subscript[c] for c in sequence)

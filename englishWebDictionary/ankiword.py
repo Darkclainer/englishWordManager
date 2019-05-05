@@ -1,4 +1,4 @@
-"""This module define Ankiword class and metawordToAnkiwordList function"""
+"""This module define Ankiword class"""
 
 class Ankiword:
     """Class used to bound Word with Anki"""
@@ -16,18 +16,18 @@ class Ankiword:
         self.noteId = None
 
     @staticmethod
-    def fromWord(word, definition):
+    def fromLemma(lemma):
         """Construct Ankiword from some word and definition"""
-        ankiword = Ankiword(word.lettering, language=word.language)
-        ankiword.partOfSpeech = word.partOfSpeech
-        ankiword.transcriptions = list(word.transcriptions.items())
+        ankiword = Ankiword(lemma.lemma, language=lemma.language)
+        ankiword.partOfSpeech = lemma.part_of_speech
+        ankiword.transcriptions = list(lemma.transcriptions.items())
 
-        ankiword.definition = definition.text
-        ankiword.examples = list(definition.examples)
-        ankiword.hint = definition.hint
+        ankiword.definition = lemma.definition
+        ankiword.examples = list(lemma.examples)
+        ankiword.hint = lemma.guide_word
         # if we have variant - set this lettering for word
-        if definition.variant:
-            ankiword.lettering = definition.variant
+        if lemma.alternative_form:
+            ankiword.lettering = lemma.alternative_form
 
         return ankiword
 
@@ -46,12 +46,3 @@ class Ankiword:
         ankiword.hint = getFromNote('hint')
         ankiword.noteId = note.id
         return ankiword
-
-def metawordToAnkiwordList(metaword):
-    """Convert Metaword to list of Ankiwords"""
-    ankiwordList = []
-    for word in metaword:
-        for definition in word.definitions:
-            ankiwordList.append(Ankiword.fromWord(word, definition))
-
-    return ankiwordList
